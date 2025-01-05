@@ -1,7 +1,8 @@
 'use client';
 
+import DesktopMenu from '@/components/desktop-menu';
 import MobileMenu from '@/components/mobile-menu';
-import { getProviders, signIn, signOut } from 'next-auth/react';
+import { getProviders, signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -41,28 +42,7 @@ const Nav = () => {
       <div className="sm:flex hidden">
         {isUserLoggedIn ? (
           <div className="flex-center gap-3 md:gap-5">
-            <Link
-              className="black_btn"
-              href="/create-prompt"
-            >
-              Create Post
-            </Link>
-            <button
-              className="outline_btn"
-              type="button"
-              onClick={() => signOut()}
-            >
-              Sign Out
-            </button>
-            <Link href="/profile">
-              <Image
-                alt="profile"
-                className="rounded-full"
-                height={37}
-                src="/assets/images/logo.svg"
-                width={37}
-              />
-            </Link>
+            <DesktopMenu />
           </div>
         ) : (
           <>
