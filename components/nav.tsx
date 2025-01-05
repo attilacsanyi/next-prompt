@@ -1,5 +1,6 @@
 'use client';
 
+import MobileMenu from '@/components/mobile-menu';
 import { getProviders, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -84,14 +85,7 @@ const Nav = () => {
       <div className="sm:hidden flex relative">
         {isUserLoggedIn ? (
           <div className="flex">
-            <Image
-              alt="menu"
-              className="invert-white"
-              height={37}
-              src="/assets/images/logo.svg"
-              width={37}
-              onClick={() => {}}
-            />
+            <MobileMenu />
           </div>
         ) : (
           <>
