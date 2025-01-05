@@ -1,3 +1,5 @@
+import Feed from '@/components/feed';
+
 const HomePage = () => {
   return (
     <>
@@ -15,6 +17,8 @@ const HomePage = () => {
           discover, create and share prompts
         </p>
       </section>
+
+      <Feed />
     </>
   );
 };
