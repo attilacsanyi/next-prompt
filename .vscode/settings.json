@@ -25,7 +25,8 @@
   "window.title": "${rootName}${separator}${activeEditorLong} ${dirty}",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "always",
+    // Prettier plugin for organize imports
+    "source.organizeImports": "never",
     "source.fixAll.eslint": "always",
     "source.fixAll.stylelint": "always"
   },
