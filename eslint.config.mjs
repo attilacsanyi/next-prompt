@@ -11,6 +11,19 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  {
+    rules: {
+      // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md
+      'react/jsx-sort-props': [
+        'error',
+        {
+          reservedFirst: true,
+          callbacksLast: true,
+          shorthandLast: true,
+        },
+      ],
+    },
+  },
 ];
 
 export default eslintConfig;
