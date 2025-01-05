@@ -1,26 +1,11 @@
-'use client';
-
+import AuthProviders from '@/components/auth-providers';
 import DesktopMenu from '@/components/desktop-menu';
 import MobileMenu from '@/components/mobile-menu';
-import { getProviders, signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 const Nav = () => {
   const isUserLoggedIn = true;
-
-  const [authProviders, setAuthProviders] = useState<Awaited<
-    ReturnType<typeof getProviders>
-  > | null>(null);
-
-  useEffect(() => {
-    const setProviders = async () => {
-      const response = await getProviders();
-      setAuthProviders(response);
-    };
-    setProviders();
-  }, []);
 
   return (
     <nav className="flex-between mb-16 w-full pt-3">
@@ -45,19 +30,7 @@ const Nav = () => {
             <DesktopMenu />
           </div>
         ) : (
-          <>
-            {authProviders &&
-              Object.values(authProviders).map(provider => (
-                <button
-                  key={provider.name}
-                  className="black_btn"
-                  type="button"
-                  onClick={() => signIn(provider.id)}
-                >
-                  Sign in
-                </button>
-              ))}
-          </>
+          <AuthProviders />
         )}
       </div>
 
@@ -68,19 +41,7 @@ const Nav = () => {
             <MobileMenu />
           </div>
         ) : (
-          <>
-            {authProviders &&
-              Object.values(authProviders).map(provider => (
-                <button
-                  key={provider.name}
-                  className="black_btn"
-                  type="button"
-                  onClick={() => signIn(provider.id)}
-                >
-                  Sign in
-                </button>
-              ))}
-          </>
+          <AuthProviders />
         )}
       </div>
     </nav>
