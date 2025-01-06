@@ -1,11 +1,14 @@
 import AuthProviders from '@/components/auth-providers';
 import DesktopMenu from '@/components/desktop-menu';
 import MobileMenu from '@/components/mobile-menu';
+import { auth } from '@/utils/auth';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const Nav = () => {
-  const avatarUrl = '/assets/images/logo.svg';
+const Nav = async () => {
+  const session = await auth();
+  const isUserLoggedIn = !!session?.user;
+  const avatarUrl = session?.user?.image ?? '/assets/images/logo.svg';
 
   return (
     <nav className="flex-between mb-16 w-full pt-3">
