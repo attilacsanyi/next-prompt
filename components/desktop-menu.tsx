@@ -1,10 +1,10 @@
 'use client';
 
+import Avatar from '@/components/avatar';
 import { signOut } from 'next-auth/react';
-import Image from 'next/image';
 import Link from 'next/link';
 
-const DesktopMenu = () => {
+const DesktopMenu = ({ avatarUrl }: { avatarUrl: string }) => {
   return (
     <>
       <Link
@@ -21,12 +21,9 @@ const DesktopMenu = () => {
         Sign Out
       </button>
       <Link href="/profile">
-        <Image
-          alt="profile"
-          className="rounded-full"
-          height={37}
-          src="/assets/images/logo.svg"
-          width={37}
+        <Avatar
+          avatarUrl={avatarUrl}
+          imageDescription="profile"
         />
       </Link>
     </>

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const avatarUrl = '/assets/images/logo.svg';
 
   return (
     <nav className="flex-between mb-16 w-full pt-3">
@@ -27,7 +27,7 @@ const Nav = () => {
       <div className="sm:flex hidden">
         {isUserLoggedIn ? (
           <div className="flex-center gap-3 md:gap-5">
-            <DesktopMenu />
+            <DesktopMenu avatarUrl={avatarUrl} />
           </div>
         ) : (
           <AuthProviders />
@@ -38,7 +38,7 @@ const Nav = () => {
       <div className="sm:hidden flex relative">
         {isUserLoggedIn ? (
           <div className="flex">
-            <MobileMenu />
+            <MobileMenu avatarUrl={avatarUrl} />
           </div>
         ) : (
           <AuthProviders />

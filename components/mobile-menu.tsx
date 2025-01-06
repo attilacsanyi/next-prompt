@@ -1,24 +1,19 @@
 'use client';
 
+import Avatar from '@/components/avatar';
 import { signOut } from 'next-auth/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const MobileMenu = () => {
+const MobileMenu = ({ avatarUrl }: { avatarUrl: string }) => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   return (
     <>
-      <Image
-        alt="menu"
-        className="invert-white"
-        height={37}
-        src="/assets/images/logo.svg"
-        width={37}
-        onClick={() => {
-          setToggleDropdown(prev => !prev);
-        }}
+      <Avatar
+        avatarUrl={avatarUrl}
+        imageDescription="menu"
+        onClick={() => setToggleDropdown(prev => !prev)}
       />
       {toggleDropdown && (
         <div className="dropdown">
