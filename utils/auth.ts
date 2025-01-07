@@ -1,25 +1,20 @@
 import User from '@/models/user';
 import { connectToDB } from '@/utils/database';
-import type {
-  GetServerSidePropsContext,
-  NextApiRequest,
-  NextApiResponse,
-} from 'next';
-import type { NextAuthOptions } from 'next-auth';
-import { getServerSession } from 'next-auth';
+import NextAuth, { type Profile } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
-if (!process.env.GOOGLE_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+if (!process.env.AUTH_GOOGLE_ID || !process.env.AUTH_GOOGLE_SECRET) {
   throw new Error('Missing Google OAuth credentials');
 }
 
-export const authOptions = {
+export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
     }),
   ],
+  trustHost: true,
   callbacks: {
     /*
      * Serverless function to get the session
@@ -39,17 +34,29 @@ export const authOptions = {
      * Docs: https://next-auth.js.org/configuration/callbacks#sign-in-callback
      */
     async signIn({ profile }) {
+      const isValidProfile = (
+        profile?: Profile
+      ): profile is { email: string; name: string; picture: string } => {
+        if (!profile || !profile.email || !profile.name || !profile.picture) {
+          throw new Error(
+            'Profile is required and must have email, name, and picture'
+          );
+        }
+
+        return true;
+      };
+
       try {
-        if (!profile) {
-          throw new Error('Profile is required');
+        if (!isValidProfile(profile)) {
+          throw new Error('Invalid profile');
         }
 
         await connectToDB();
 
-        const { name = '', email = '', image = '' } = profile;
+        const { name, email, picture: image } = profile;
 
         // Check if user already exist
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: profile.email });
 
         // If not create a user in the database
         if (!user) {
@@ -67,17 +74,4 @@ export const authOptions = {
       }
     },
   },
-} satisfies NextAuthOptions;
-
-/**
- * Read the session in server components
- * Docs: https://next-auth.js.org/configuration/nextjs#getserversession
- */
-export function auth(
-  ...args:
-    | [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']]
-    | [NextApiRequest, NextApiResponse]
-    | []
-) {
-  return getServerSession(...args, authOptions);
-}
+});
