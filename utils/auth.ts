@@ -7,7 +7,12 @@ if (!process.env.AUTH_GOOGLE_ID || !process.env.AUTH_GOOGLE_SECRET) {
   throw new Error('Missing Google OAuth credentials');
 }
 
-export const { auth, handlers, signIn, signOut } = NextAuth({
+export const {
+  auth,
+  handlers: { GET, POST },
+  signIn,
+  signOut,
+} = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID,
