@@ -4,7 +4,7 @@ import Avatar from '@/components/avatar';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 
-const DesktopMenu = ({ avatarUrl }: { avatarUrl: string }) => {
+const DesktopMenu = ({ avatarUrl }: { avatarUrl?: string }) => {
   return (
     <>
       <Link

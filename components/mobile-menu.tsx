@@ -5,7 +5,7 @@ import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const MobileMenu = ({ avatarUrl }: { avatarUrl: string }) => {
+const MobileMenu = ({ avatarUrl }: { avatarUrl?: string }) => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   return (
@@ -32,7 +32,7 @@ const MobileMenu = ({ avatarUrl }: { avatarUrl: string }) => {
             Create Prompt
           </Link>
           <button
-            className="mt-5 w-full black_btn"
+            className="black_btn mt-5 w-full"
             type="button"
             onClick={() => {
               setToggleDropdown(false);
