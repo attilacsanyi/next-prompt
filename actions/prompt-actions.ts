@@ -2,6 +2,7 @@
 
 import Prompt from '@/models/prompt';
 import {
+  CreatePromptForm,
   CreatePromptFormSchema,
   CreatePromptFormState,
 } from '@/models/prompt.types';
@@ -13,7 +14,12 @@ export const createPrompt = async (
   prevState: CreatePromptFormState,
   formData: FormData
 ): Promise<CreatePromptFormState> => {
-  const values = {
+  const session = await auth();
+  if (!session?.user) {
+    unauthorized();
+  }
+
+  const values: CreatePromptForm = {
     prompt: formData.get('prompt') as string,
     tag: formData.get('tag') as string,
   };
@@ -26,11 +32,6 @@ export const createPrompt = async (
       errors: validatedFields.error.flatten().fieldErrors,
       values,
     };
-  }
-
-  const session = await auth();
-  if (!session?.user) {
-    unauthorized();
   }
 
   const { prompt, tag } = validatedFields.data;
@@ -52,6 +53,6 @@ export const createPrompt = async (
       values,
     };
   }
-  // Alternative is to use useRouter() in the client component and here only return the state with status
+  // Alternative would be to  use useRouter() in the client component and here only return the state with status
   redirect('/');
 };
