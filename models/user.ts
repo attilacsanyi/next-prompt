@@ -1,3 +1,5 @@
+'server-only';
+
 import { Model, Schema, model, models } from 'mongoose';
 
 type IUser = {

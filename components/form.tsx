@@ -1,19 +1,12 @@
-import { Prompt } from '@/models/prompt';
-import Link from 'next/link';
+'use client';
 
-const Form = ({
-  type,
-  post,
-  setPost,
-  submitting,
-  handleSubmit,
-}: {
-  type: string;
-  post: Prompt;
-  setPost: (post: Prompt) => void;
-  submitting: boolean;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}) => {
+import { createPrompt } from '@/actions/prompt-actions';
+import Link from 'next/link';
+import { useActionState } from 'react';
+
+const Form = ({ type }: { type: string }) => {
+  const [state, formAction, pending] = useActionState(createPrompt, undefined);
+
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">
@@ -25,8 +18,8 @@ const Form = ({
       </p>
 
       <form
+        action={formAction}
         className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
-        onSubmit={handleSubmit}
       >
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
@@ -36,10 +29,13 @@ const Form = ({
             className="form_textarea"
             name="prompt"
             placeholder="Write your prompt here..."
-            value={post.prompt}
             required
-            onChange={e => setPost({ ...post, prompt: e.target.value })}
           />
+          {state?.errors?.prompt && (
+            <p className="mt-2 text-sm text-red-500">
+              {state.errors.prompt.join(', ')}
+            </p>
+          )}
         </label>
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
@@ -52,11 +48,17 @@ const Form = ({
             className="form_input"
             name="tag"
             placeholder="#tag"
-            value={post.tag}
             required
-            onChange={e => setPost({ ...post, tag: e.target.value })}
           />
+          {state?.errors?.tag && (
+            <p className="mt-2 text-sm text-red-500">
+              {state.errors.tag.join(', ')}
+            </p>
+          )}
         </label>
+        {state?.errors?.error && (
+          <p className="mt-2 text-sm text-red-500">{state.errors.error}</p>
+        )}
 
         <div className="flex-end mx-3 mb-5 gap-4">
           <Link
@@ -67,10 +69,10 @@ const Form = ({
           </Link>
           <button
             className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white"
-            disabled={submitting}
+            disabled={pending}
             type="submit"
           >
-            {submitting ? `${type}...` : type}
+            {pending ? `${type}...` : type}
           </button>
         </div>
       </form>
