@@ -8,15 +8,14 @@
 
   // Search
   "search.exclude": {
-    ".vscode": true,
-    ".history": true,
-    ".nx": true,
     ".next": true,
-    "dist": true,
-    "build": true,
-    "node_modules": true,
+    ".nx": true,
+    ".pnpm": true,
+    ".vscode": true,
+    "*.svg": true,
     "*lock.*": true,
-    "*.svg": true
+    "build": true,
+    "dist": true
   },
   // Typescript
   "typescript.tsdk": "node_modules/typescript/lib",
