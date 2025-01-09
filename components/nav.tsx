@@ -27,7 +27,7 @@ const Nav = async () => {
       </Link>
 
       {/* Desktop navigation */}
-      <div className="sm:flex hidden">
+      <div className="hidden sm:flex">
         {isUserLoggedIn ? (
           <div className="flex-center gap-3 md:gap-5">
             <DesktopMenu avatarUrl={avatarUrl} />
@@ -38,7 +38,7 @@ const Nav = async () => {
       </div>
 
       {/* Mobile navigation */}
-      <div className="sm:hidden flex relative">
+      <div className="relative flex sm:hidden">
         {isUserLoggedIn ? (
           <div className="flex">
             <MobileMenu avatarUrl={avatarUrl} />
