@@ -2,7 +2,8 @@
 
 import { Model, Schema, model, models } from 'mongoose';
 
-type IUser = {
+export type IUser = {
+  _id: string;
   email: string;
   username: string;
   image?: string;

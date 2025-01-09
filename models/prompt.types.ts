@@ -1,4 +1,12 @@
+import { UserDto } from '@/models/user.types';
 import { z } from 'zod';
+
+export type PromptDto = {
+  id: string;
+  prompt: string;
+  tag: string;
+  creator: UserDto;
+};
 
 export type CreatePrompt = {
   prompt: string;

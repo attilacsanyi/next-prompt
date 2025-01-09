@@ -1,14 +1,39 @@
 'use server';
 
-import Prompt from '@/models/prompt';
+import Prompt, { IPrompt } from '@/models/prompt';
 import {
   CreatePromptForm,
   CreatePromptFormSchema,
   CreatePromptFormState,
+  PromptDto,
 } from '@/models/prompt.types';
 import { auth } from '@/utils/auth';
 import { connectToDB } from '@/utils/database';
 import { redirect, unauthorized } from 'next/navigation';
+
+// TODO: move to dal as this is not an action
+export const getPrompts = async (): Promise<PromptDto[]> => {
+  let prompts: PromptDto[] = [];
+  try {
+    await connectToDB();
+    const promptsData: IPrompt[] = await Prompt.find({}).populate('creator');
+    // TODO: define in utils or in dal
+    prompts = promptsData.map(prompt => ({
+      id: prompt._id.toString(),
+      prompt: prompt.prompt,
+      tag: prompt.tag,
+      creator: {
+        id: prompt.creator._id.toString(),
+        username: prompt.creator.username,
+        email: prompt.creator.email,
+        image: prompt.creator.image,
+      },
+    }));
+  } catch (error) {
+    console.error('Failed to fetch prompts', error);
+  }
+  return prompts;
+};
 
 export const createPrompt = async (
   prevState: CreatePromptFormState,
@@ -37,6 +62,7 @@ export const createPrompt = async (
   const { prompt, tag } = validatedFields.data;
   const creator = session.user.id;
 
+  // TODO: move this create prompt logic to dal
   try {
     await connectToDB();
 

@@ -1,11 +1,13 @@
 'server-only';
 
+import { IUser } from '@/models/user';
 import { model, Model, models, Schema } from 'mongoose';
 
-type IPrompt = {
+export type IPrompt = {
+  _id: string;
   prompt: string;
   tag: string;
-  creator: string;
+  creator: IUser;
 };
 
 const PromptSchema = new Schema({
