@@ -13,15 +13,18 @@ export const createPrompt = async (
   prevState: CreatePromptFormState,
   formData: FormData
 ): Promise<CreatePromptFormState> => {
-  const validatedFields = CreatePromptFormSchema.safeParse({
-    prompt: formData.get('prompt'),
-    tag: formData.get('tag'),
-  });
+  const values = {
+    prompt: formData.get('prompt') as string,
+    tag: formData.get('tag') as string,
+  };
+
+  const validatedFields = CreatePromptFormSchema.safeParse(values);
 
   if (!validatedFields.success) {
     console.log(validatedFields.error.flatten().fieldErrors);
     return {
       errors: validatedFields.error.flatten().fieldErrors,
+      values,
     };
   }
 
@@ -36,11 +39,7 @@ export const createPrompt = async (
   try {
     await connectToDB();
 
-    const newPrompt = new Prompt({
-      creator,
-      prompt,
-      tag,
-    });
+    const newPrompt = new Prompt({ creator, prompt, tag });
 
     await newPrompt.save();
   } catch (error) {
@@ -50,6 +49,7 @@ export const createPrompt = async (
       errors: {
         error: errorMessage,
       },
+      values,
     };
   }
   // Alternative is to use useRouter() in the client component and here only return the state with status

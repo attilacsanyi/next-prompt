@@ -14,11 +14,9 @@ export const CreatePromptFormSchema = z.object({
 
 export type CreatePromptForm = z.infer<typeof CreatePromptFormSchema>;
 
-// TODO: preserve previous form state values
-export type CreatePromptFormState =
-  | {
-      errors?: { [key in keyof CreatePromptForm]?: string[] } & {
-        error?: string;
-      };
-    }
-  | undefined;
+export type CreatePromptFormState = {
+  errors?: { [key in keyof CreatePromptForm]?: string[] } & {
+    error?: string;
+  };
+  values: CreatePromptForm;
+};

@@ -5,7 +5,19 @@ import Link from 'next/link';
 import { useActionState } from 'react';
 
 const Form = ({ type }: { type: string }) => {
-  const [state, formAction, pending] = useActionState(createPrompt, undefined);
+  const [
+    {
+      errors,
+      values: { prompt, tag },
+    },
+    formAction,
+    pending,
+  ] = useActionState(createPrompt, {
+    values: {
+      prompt: '',
+      tag: '',
+    },
+  });
 
   return (
     <section className="w-full max-w-full flex-start flex-col">
@@ -27,13 +39,14 @@ const Form = ({ type }: { type: string }) => {
           </span>
           <textarea
             className="form_textarea"
+            defaultValue={prompt}
             name="prompt"
             placeholder="Write your prompt here..."
             required
           />
-          {state?.errors?.prompt && (
+          {errors?.prompt && (
             <p className="mt-2 text-sm text-red-500">
-              {state.errors.prompt.join(', ')}
+              {errors.prompt.join(', ')}
             </p>
           )}
         </label>
@@ -46,18 +59,17 @@ const Form = ({ type }: { type: string }) => {
           </span>
           <input
             className="form_input"
+            defaultValue={tag}
             name="tag"
             placeholder="#tag"
             required
           />
-          {state?.errors?.tag && (
-            <p className="mt-2 text-sm text-red-500">
-              {state.errors.tag.join(', ')}
-            </p>
+          {errors?.tag && (
+            <p className="mt-2 text-sm text-red-500">{errors.tag.join(', ')}</p>
           )}
         </label>
-        {state?.errors?.error && (
-          <p className="mt-2 text-sm text-red-500">{state.errors.error}</p>
+        {errors?.error && (
+          <p className="mt-2 text-sm text-red-500">{errors.error}</p>
         )}
 
         <div className="flex-end mx-3 mb-5 gap-4">
