@@ -7,7 +7,7 @@ import {
 } from '@/models/prompt.types';
 import { auth } from '@/utils/auth';
 import { connectToDB } from '@/utils/database';
-import { redirect } from 'next/navigation';
+import { redirect, unauthorized } from 'next/navigation';
 
 export const createPrompt = async (
   prevState: CreatePromptFormState,
@@ -27,7 +27,7 @@ export const createPrompt = async (
 
   const session = await auth();
   if (!session?.user) {
-    redirect('/'); // TODO: use the new unauthorized page
+    unauthorized();
   }
 
   const { prompt, tag } = validatedFields.data;
