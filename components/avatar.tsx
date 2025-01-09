@@ -1,21 +1,25 @@
+'use client';
+
 import Image from 'next/image';
 
 const Avatar = ({
-  avatarUrl,
   imageDescription,
+  avatarUrl = '/assets/images/logo.svg',
+  size = 37,
   onClick = () => {},
 }: {
-  avatarUrl: string;
   imageDescription: string;
+  avatarUrl?: string;
+  size?: number;
   onClick?: () => void;
 }) => {
   return (
     <Image
       alt={imageDescription}
       className="rounded-full"
-      height={37}
+      height={size}
       src={avatarUrl}
-      width={37}
+      width={size}
       onClick={onClick}
     />
   );

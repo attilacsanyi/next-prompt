@@ -8,7 +8,7 @@ import Link from 'next/link';
 const Nav = async () => {
   const session = await auth();
   const isUserLoggedIn = !!session?.user;
-  const avatarUrl = session?.user?.image ?? '/assets/images/logo.svg';
+  const avatarUrl = session?.user?.image ?? undefined;
 
   return (
     <nav className="flex-between mb-16 w-full pt-3">
