@@ -9,6 +9,7 @@ import {
 } from '@/models/prompt.types';
 import { auth } from '@/utils/auth';
 import { connectToDB } from '@/utils/database';
+import { promptDtoFromIPrompt } from '@/utils/prompt-util';
 import { redirect, unauthorized } from 'next/navigation';
 
 // TODO: move to dal as this is not an action
@@ -21,18 +22,7 @@ export const getPromptsByUserId = async (
     const promptsData = await Prompt.find({ creator: userId }).populate(
       'creator'
     );
-    // TODO: define in utils or in dal
-    prompts = promptsData.map(prompt => ({
-      id: prompt._id.toString(),
-      prompt: prompt.prompt,
-      tag: prompt.tag,
-      creator: {
-        id: prompt.creator._id.toString(),
-        username: prompt.creator.username,
-        email: prompt.creator.email,
-        image: prompt.creator.image,
-      },
-    }));
+    prompts = promptsData.map(prompt => promptDtoFromIPrompt(prompt));
   } catch (error) {
     console.error('Failed to fetch prompts by userId', error);
   }
@@ -45,18 +35,7 @@ export const getPrompts = async (): Promise<PromptDto[]> => {
   try {
     await connectToDB();
     const promptsData: IPrompt[] = await Prompt.find({}).populate('creator');
-    // TODO: define in utils or in dal
-    prompts = promptsData.map(prompt => ({
-      id: prompt._id.toString(),
-      prompt: prompt.prompt,
-      tag: prompt.tag,
-      creator: {
-        id: prompt.creator._id.toString(),
-        username: prompt.creator.username,
-        email: prompt.creator.email,
-        image: prompt.creator.image,
-      },
-    }));
+    prompts = promptsData.map(prompt => promptDtoFromIPrompt(prompt));
   } catch (error) {
     console.error('Failed to fetch prompts', error);
   }
