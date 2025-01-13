@@ -8,6 +8,12 @@ import { useState } from 'react';
 const MobileMenu = ({ avatarUrl }: { avatarUrl?: string }) => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
+  const handleSignOut = async () => {
+    setToggleDropdown(false);
+    // https://next-auth.js.org/getting-started/client#specifying-a-callbackurl-1
+    await signOut({ callbackUrl: '/' });
+  };
+
   return (
     <>
       <Avatar
@@ -34,10 +40,7 @@ const MobileMenu = ({ avatarUrl }: { avatarUrl?: string }) => {
           <button
             className="black_btn mt-5 w-full"
             type="button"
-            onClick={() => {
-              setToggleDropdown(false);
-              signOut();
-            }}
+            onClick={handleSignOut}
           >
             Sign Out
           </button>

@@ -5,6 +5,11 @@ import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 
 const DesktopMenu = ({ avatarUrl }: { avatarUrl?: string }) => {
+  const handleSignOut = async () => {
+    // https://next-auth.js.org/getting-started/client#specifying-a-callbackurl-1
+    await signOut({ callbackUrl: '/' });
+  };
+
   return (
     <>
       <Link
@@ -16,7 +21,7 @@ const DesktopMenu = ({ avatarUrl }: { avatarUrl?: string }) => {
       <button
         className="outline_btn"
         type="button"
-        onClick={() => signOut()}
+        onClick={handleSignOut}
       >
         Sign Out
       </button>
