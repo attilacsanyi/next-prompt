@@ -4,10 +4,12 @@ import Tag from '@/components/tag';
 import { PromptDto } from '@/models/prompt.types';
 import Link from 'next/link';
 
-const PromptCard = ({
-  prompt: { creator, prompt, tag },
+const PromptCard = async ({
+  prompt: { creator, prompt, tag, id },
+  editMode,
 }: {
   prompt: PromptDto;
+  editMode: boolean;
 }) => {
   return (
     <div className="prompt_card">
@@ -36,6 +38,17 @@ const PromptCard = ({
       </div>
       <p className="my-4 font-satoshi text-sm text-gray-700">{prompt}</p>
       <Tag tag={tag} />
+
+      {editMode && (
+        <div className="flex-center mt-5 gap-4 border-t border-gray-100 pt-3">
+          <p className="green_gradient cursor-pointer font-inter text-sm">
+            Edit
+          </p>
+          <p className="orange_gradient cursor-pointer font-inter text-sm">
+            Delete
+          </p>
+        </div>
+      )}
     </div>
   );
 };

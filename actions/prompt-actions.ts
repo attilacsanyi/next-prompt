@@ -12,6 +12,34 @@ import { connectToDB } from '@/utils/database';
 import { redirect, unauthorized } from 'next/navigation';
 
 // TODO: move to dal as this is not an action
+export const getPromptsByUserId = async (
+  userId: string
+): Promise<PromptDto[]> => {
+  let prompts: PromptDto[] = [];
+  try {
+    await connectToDB();
+    const promptsData = await Prompt.find({ creator: userId }).populate(
+      'creator'
+    );
+    // TODO: define in utils or in dal
+    prompts = promptsData.map(prompt => ({
+      id: prompt._id.toString(),
+      prompt: prompt.prompt,
+      tag: prompt.tag,
+      creator: {
+        id: prompt.creator._id.toString(),
+        username: prompt.creator.username,
+        email: prompt.creator.email,
+        image: prompt.creator.image,
+      },
+    }));
+  } catch (error) {
+    console.error('Failed to fetch prompts by userId', error);
+  }
+  return prompts;
+};
+
+// TODO: move to dal as this is not an action
 export const getPrompts = async (): Promise<PromptDto[]> => {
   let prompts: PromptDto[] = [];
   try {

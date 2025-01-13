@@ -7,7 +7,9 @@ const Feed = async () => {
   return (
     <section className="feed">
       <PromptSearch />
-      <PromptCardList prompts={prompts} />
+      <div className="mt-16">
+        <PromptCardList prompts={prompts} />
+      </div>
     </section>
   );
 };

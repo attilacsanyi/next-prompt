@@ -1,3 +1,4 @@
+import { getPromptsByUserId } from '@/actions/prompt-actions';
 import Profile from '@/components/profile';
 import { auth } from '@/utils/auth';
 import { unauthorized } from 'next/navigation';
@@ -9,7 +10,16 @@ const ProfilePage = async () => {
     unauthorized();
   }
 
-  return <Profile />;
+  const userPrompts = await getPromptsByUserId(session.user.id);
+
+  return (
+    <Profile
+      editMode={true}
+      name="My"
+      prompts={userPrompts}
+      title="Welcome to your personalized profile page"
+    />
+  );
 };
 
 export default ProfilePage;
