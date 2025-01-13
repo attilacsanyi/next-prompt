@@ -18,7 +18,7 @@ const CopyButton = ({
 
     setTimeout(() => {
       setCopied('');
-    }, 1000);
+    }, 3000);
   };
 
   return (
