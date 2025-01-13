@@ -4,6 +4,7 @@ import { unauthorized } from 'next/navigation';
 
 const CreatePromptPage = async () => {
   const session = await auth();
+  // TODO: handle authentication in one place (middleware?)
   if (!session?.user) {
     unauthorized();
   }
