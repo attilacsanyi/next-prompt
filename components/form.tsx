@@ -4,7 +4,13 @@ import { createPromptAction } from '@/actions/prompt-actions';
 import Link from 'next/link';
 import { useActionState } from 'react';
 
-const Form = ({ type }: { type: string }) => {
+const Form = ({
+  type,
+  values = { prompt: '', tag: '' },
+}: {
+  type: string;
+  values?: { prompt: string; tag: string };
+}) => {
   const [
     {
       errors,
@@ -13,10 +19,7 @@ const Form = ({ type }: { type: string }) => {
     formAction,
     pending,
   ] = useActionState(createPromptAction, {
-    values: {
-      prompt: '',
-      tag: '',
-    },
+    values,
   });
 
   return (
