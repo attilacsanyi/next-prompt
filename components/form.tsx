@@ -1,16 +1,18 @@
 'use client';
 
-import { createPromptAction } from '@/actions/prompt-actions';
+import { upsertPromptAction } from '@/actions/prompt-actions';
 import Link from 'next/link';
 import { useActionState } from 'react';
 
 const Form = ({
-  type,
-  values = { prompt: '', tag: '' },
+  values,
 }: {
-  type: string;
-  values?: { prompt: string; tag: string };
+  values?: { prompt: string; tag: string; id: string };
 }) => {
+  const mode = values ? 'Update' : 'Create';
+  // Only defined in update mode
+  const promptId = values?.id;
+
   const [
     {
       errors,
@@ -18,17 +20,17 @@ const Form = ({
     },
     formAction,
     pending,
-  ] = useActionState(createPromptAction, {
-    values,
+  ] = useActionState(upsertPromptAction.bind(null, promptId), {
+    values: values ?? { prompt: '', tag: '' },
   });
 
   return (
     <section className="flex-start w-full max-w-full flex-col">
       <h1 className="head_text text-left">
-        <span className="blue_gradient">{type} Prompt</span>
+        <span className="blue_gradient">{mode} Prompt</span>
       </h1>
       <p className="desc max-w-md text-left">
-        {type} and share amazing prompts with the world, and let your
+        {mode} and share amazing prompts with the world, and let your
         imagination run wild with any AI-powered platform.
       </p>
 
@@ -78,7 +80,7 @@ const Form = ({
         <div className="flex-end mx-3 mb-5 gap-4">
           <Link
             className="text-sm text-gray-500"
-            href="/"
+            href={mode === 'Update' ? '/profile' : '/'}
           >
             Cancel
           </Link>
@@ -87,7 +89,7 @@ const Form = ({
             disabled={pending}
             type="submit"
           >
-            {pending ? `${type}...` : type}
+            {pending ? `${mode}...` : mode}
           </button>
         </div>
       </form>

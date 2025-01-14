@@ -70,13 +70,15 @@ export const updatePrompt = async (
   let updatedPrompt: PromptDto | null = null;
   try {
     await connectToDB();
-    const existingPrompt = await Prompt.findByIdAndUpdate(id, {
-      prompt,
-      tag,
-    });
-    if (existingPrompt) {
-      const savedPrompt = await existingPrompt.save();
-      updatedPrompt = promptDtoFromIPrompt(savedPrompt);
+    const promptToUpdate = await Prompt.findById(id).populate('creator');
+
+    if (promptToUpdate) {
+      promptToUpdate.prompt = prompt;
+      promptToUpdate.tag = tag;
+      const modifiedPrompt = await promptToUpdate.save();
+      updatedPrompt = promptDtoFromIPrompt(modifiedPrompt);
+    } else {
+      console.error(`Prompt not found by id ${id}`);
     }
   } catch (error) {
     console.error(`Failed to update prompt by id ${id}`, error);

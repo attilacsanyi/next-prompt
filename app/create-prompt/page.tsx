@@ -9,7 +9,7 @@ const CreatePromptPage = async () => {
     unauthorized();
   }
 
-  return <Form type="Create" />;
+  return <Form />;
 };
 
 export default CreatePromptPage;

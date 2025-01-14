@@ -14,9 +14,9 @@ const UpdatePromptPage = async ({
     unauthorized();
   }
 
-  const id = (await searchParams).id;
+  const promptId = (await searchParams).id;
 
-  const promptToUpdate = await getPrompt(id);
+  const promptToUpdate = await getPrompt(promptId);
 
   if (!promptToUpdate) {
     notFound();
@@ -24,12 +24,7 @@ const UpdatePromptPage = async ({
 
   const { prompt, tag } = promptToUpdate;
 
-  return (
-    <Form
-      type="Update"
-      values={{ prompt, tag }}
-    />
-  );
+  return <Form values={{ prompt, tag, id: promptId }} />;
 };
 
 export default UpdatePromptPage;
