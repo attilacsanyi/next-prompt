@@ -16,7 +16,7 @@ const Avatar = ({
   return (
     <Image
       alt={imageDescription}
-      className="rounded-full"
+      className={`rounded-full ${!!onClick ? 'cursor-pointer' : ''}`}
       height={size}
       src={avatarUrl}
       width={size}
