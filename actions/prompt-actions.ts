@@ -1,24 +1,37 @@
 'use server';
 
 import {
-  CreatePromptForm,
   CreatePromptFormSchema,
   CreatePromptFormState,
+  CreatePromptFormStateSchema,
 } from '@/models/prompt.types';
 import { auth } from '@/utils/auth';
 import { createPrompt } from '@/utils/prompt-dal';
 import { redirect, unauthorized } from 'next/navigation';
 
 export const createPromptAction = async (
-  state: CreatePromptFormState,
-  formData: FormData
+  state: unknown,
+  formData: unknown
 ): Promise<CreatePromptFormState> => {
   const session = await auth();
   if (!session?.user) {
     unauthorized();
   }
 
-  const values: CreatePromptForm = {
+  if (!(formData instanceof FormData)) {
+    throw new Error('Invalid form data');
+  }
+
+  const validatedState = CreatePromptFormStateSchema.safeParse(state);
+  if (!validatedState.success) {
+    const errorMessage = `Invalid from state: ${JSON.stringify(
+      validatedState.error.flatten().fieldErrors
+    )}`;
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
+  const values = {
     prompt: formData.get('prompt') as string,
     tag: formData.get('tag') as string,
   };

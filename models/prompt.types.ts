@@ -11,6 +11,12 @@ export type PromptDto = {
 export type CreatePrompt = {
   prompt: string;
   tag: string;
+  creator: string;
+};
+
+export type UpdatePrompt = {
+  prompt: string;
+  tag: string;
 };
 
 export const CreatePromptFormSchema = z.object({
@@ -22,9 +28,21 @@ export const CreatePromptFormSchema = z.object({
 
 export type CreatePromptForm = z.infer<typeof CreatePromptFormSchema>;
 
-export type CreatePromptFormState = {
-  errors?: { [key in keyof CreatePromptForm]?: string[] } & {
-    error?: string;
-  };
-  values: CreatePromptForm;
-};
+/** Form state model derived from its form schema */
+export const CreatePromptFormStateSchema = z.object({
+  errors: z
+    .object({
+      prompt: z.union([z.array(z.string()), z.undefined()]).optional(),
+      tag: z.union([z.array(z.string()), z.undefined()]).optional(),
+      /** Other not field relevant error message */
+      error: z.string().optional(),
+    })
+    .optional(),
+  /** Preserved user input values */
+  values: z.object({
+    prompt: z.string(),
+    tag: z.string(),
+  }),
+});
+
+export type CreatePromptFormState = z.infer<typeof CreatePromptFormStateSchema>;
