@@ -1,6 +1,6 @@
 'use client';
 
-import { createPrompt } from '@/actions/prompt-actions';
+import { createPromptAction } from '@/actions/prompt-actions';
 import Link from 'next/link';
 import { useActionState } from 'react';
 
@@ -12,7 +12,7 @@ const Form = ({ type }: { type: string }) => {
     },
     formAction,
     pending,
-  ] = useActionState(createPrompt, {
+  ] = useActionState(createPromptAction, {
     values: {
       prompt: '',
       tag: '',

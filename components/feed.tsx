@@ -1,6 +1,6 @@
-import { getPrompts } from '@/actions/prompt-actions';
 import PromptCardList from '@/components/prompt-card-list';
 import PromptSearch from '@/components/prompt-search';
+import { getPrompts } from '@/utils/prompt-dal';
 
 const Feed = async () => {
   const prompts = await getPrompts();

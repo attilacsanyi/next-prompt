@@ -1,6 +1,6 @@
-import { getPromptsByUserId } from '@/actions/prompt-actions';
 import Profile from '@/components/profile';
 import { auth } from '@/utils/auth';
+import { getPromptsByUserId } from '@/utils/prompt-dal';
 import { unauthorized } from 'next/navigation';
 
 const ProfilePage = async () => {
