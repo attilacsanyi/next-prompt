@@ -8,12 +8,12 @@ const EditButton = ({ id }: { id: string }) => {
     router.push(`/update-prompt?id=${id}`);
   };
   return (
-    <p
+    <button
       className="green_gradient cursor-pointer font-inter text-sm"
       onClick={handleEdit}
     >
       Edit
-    </p>
+    </button>
   );
 };
 
