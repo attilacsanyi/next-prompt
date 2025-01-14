@@ -1,5 +1,7 @@
 import Avatar from '@/components/avatar';
 import CopyButton from '@/components/copy-button';
+import DeleteButton from '@/components/delete-button';
+import EditButton from '@/components/edit-button';
 import Tag from '@/components/tag';
 import { PromptDto } from '@/models/prompt.types';
 import Link from 'next/link';
@@ -41,12 +43,8 @@ const PromptCard = async ({
 
       {editMode && (
         <div className="flex-center mt-5 gap-4 border-t border-gray-100 pt-3">
-          <p className="green_gradient cursor-pointer font-inter text-sm">
-            Edit
-          </p>
-          <p className="orange_gradient cursor-pointer font-inter text-sm">
-            Delete
-          </p>
+          <EditButton id={id} />
+          <DeleteButton id={id} />
         </div>
       )}
     </div>
