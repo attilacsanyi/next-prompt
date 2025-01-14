@@ -5,7 +5,8 @@ import { useActionState } from 'react';
 
 const DeleteButton = ({ id }: { id: string }) => {
   const [, formAction, pending] = useActionState(
-    deletePromptAction.bind(null, id, {})
+    deletePromptAction.bind(null, id),
+    { error: '' }
   );
   return (
     <form action={formAction}>

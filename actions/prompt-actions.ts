@@ -83,7 +83,11 @@ export const upsertPromptAction = async (
   redirect('/profile');
 };
 
-export const deletePromptAction = async (promptId: string) => {
+export const deletePromptAction = async (
+  promptId: string,
+  _state: unknown,
+  _formData: unknown
+) => {
   const session = await auth();
   if (!session?.user) {
     unauthorized();
