@@ -86,11 +86,19 @@ export const updatePrompt = async (
   return updatedPrompt;
 };
 
-export const deletePrompt = async (id: string): Promise<void> => {
+export const deletePrompt = async (id: string): Promise<string | null> => {
+  let deletedPromptId: string | null = null;
   try {
     await connectToDB();
-    await Prompt.findByIdAndDelete(id);
+    const promptToDelete = await Prompt.findByIdAndDelete(id);
+
+    if (!promptToDelete) {
+      console.error(`Prompt not found by id ${id}`);
+    }
+    deletedPromptId = promptToDelete?.id;
   } catch (error) {
     console.error(`Failed to delete prompt by id ${id}`, error);
   }
+
+  return deletedPromptId;
 };

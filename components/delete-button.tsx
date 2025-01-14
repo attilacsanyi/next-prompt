@@ -1,16 +1,21 @@
 'use client';
 
+import { deletePromptAction } from '@/actions/prompt-actions';
+import { useActionState } from 'react';
+
 const DeleteButton = ({ id }: { id: string }) => {
-  const handleDelete = () => {
-    // TODO: delete prompt by id
-  };
+  const [, formAction, pending] = useActionState(
+    deletePromptAction.bind(null, id, {})
+  );
   return (
-    <p
-      className="orange_gradient cursor-pointer font-inter text-sm"
-      onClick={handleDelete}
-    >
-      Delete
-    </p>
+    <form action={formAction}>
+      <button
+        className="orange_gradient cursor-pointer font-inter text-sm"
+        type="submit"
+      >
+        Delete {pending ? '...' : ''}
+      </button>
+    </form>
   );
 };
 

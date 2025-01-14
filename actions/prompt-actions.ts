@@ -6,7 +6,8 @@ import {
   UpsertPromptFormStateSchema,
 } from '@/models/prompt.types';
 import { auth } from '@/utils/auth';
-import { createPrompt, updatePrompt } from '@/utils/prompt-dal';
+import { createPrompt, deletePrompt, updatePrompt } from '@/utils/prompt-dal';
+import { revalidatePath } from 'next/cache';
 import { redirect, unauthorized } from 'next/navigation';
 
 export const upsertPromptAction = async (
@@ -80,4 +81,20 @@ export const upsertPromptAction = async (
 
   // Alternative would be to  use useRouter() in the client component and here only return the state with status
   redirect('/profile');
+};
+
+export const deletePromptAction = async (promptId: string) => {
+  const session = await auth();
+  if (!session?.user) {
+    unauthorized();
+  }
+
+  const deletedPromptId = await deletePrompt(promptId);
+  if (!deletedPromptId) {
+    return {
+      error: 'Failed to delete the prompt',
+    };
+  }
+
+  revalidatePath('/profile');
 };
