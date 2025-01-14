@@ -8,6 +8,17 @@ export type PromptDto = {
   creator: UserDto;
 };
 
+export type CreatePrompt = {
+  prompt: string;
+  tag: string;
+  creator: string;
+};
+
+export type UpdatePrompt = {
+  prompt: string;
+  tag: string;
+};
+
 export const UpsertPromptFormSchema = z.object({
   prompt: z
     .string()
