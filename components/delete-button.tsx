@@ -4,6 +4,7 @@ import { deletePromptAction } from '@/actions/prompt-actions';
 import { useActionState } from 'react';
 
 const DeleteButton = ({ id }: { id: string }) => {
+  // TODO: Confirm deletion before server action
   const [, formAction, pending] = useActionState(
     deletePromptAction.bind(null, id),
     { error: '' }
