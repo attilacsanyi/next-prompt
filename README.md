@@ -1,4 +1,8 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d057f9f6-6218-4aa9-b628-60e35439ddce/deploy-status)](https://app.netlify.com/sites/next-prompt/deploys)
+
 # Next Prompt
+
+**[next-prompt.netlify.app](https://next-prompt.netlify.app/)**
 
 NextJS application for storing and managing AI prompts.
 
