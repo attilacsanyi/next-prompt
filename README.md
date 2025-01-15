@@ -4,13 +4,19 @@
 
 **[next-prompt.netlify.app](https://next-prompt.netlify.app/)**
 
-NextJS application for storing and managing AI prompts.
+Next.js application for storing and managing AI prompts.
 
 ![Next.js 15](https://img.shields.io/badge/-Next.js%2015-000000?style=flat-square&logo=next.js)
 ![React 19](https://img.shields.io/badge/-React%2019-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![Auth.js 5](https://img.shields.io/badge/-Auth.js%205-FF6B6B?style=flat-square&logo=authjs&logoColor=white)
 ![Mongoose](https://img.shields.io/badge/-Mongoose-47A248?style=flat-square&logo=mongoose&logoColor=white)
+
+<img src="public/readme/next-prompt-screen.png" width="500" alt="Next Prompt app screenshot" />
+
+_(Based on the [Next.js Full Course](https://www.youtube.com/watch?v=wm5gMKuwSYk) by [`@javascriptmastery`](https://www.youtube.com/@javascriptmastery), with special thanks to [Akos Putoczky](https://www.linkedin.com/in/akos-putoczky/) for the example prompts)_
+
+I've enhanced the original project with optimizations, best practices, and modern Next.js features while exploring the framework's capabilities
 
 ## Features
 
