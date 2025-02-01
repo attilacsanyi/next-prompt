@@ -130,7 +130,7 @@ layer(base);
 }
 
 .search_input {
-  @apply font-satoshi block w-full rounded-md border border-gray-200 bg-white py-2.5 pr-12 pl-5 text-sm font-medium shadow-lg focus:border-black focus:ring-0 focus:outline-hidden;
+  @apply font-satoshi block w-full rounded-md border border-gray-200 bg-white py-2.5 pr-12 pl-5 text-sm font-medium shadow-lg focus:border-black focus:ring-0 focus:outline-none;
 }
 
 .copy_btn {
@@ -152,11 +152,11 @@ layer(base);
 
 /* Form Component */
 .form_textarea {
-  @apply mt-2 flex h-[200px] w-full rounded-lg p-3 text-sm text-gray-500 outline-0;
+  @apply mt-2 flex h-[200px] w-full rounded-lg bg-white p-3 text-sm text-gray-500 outline-0;
 }
 
 .form_input {
-  @apply mt-2 flex w-full rounded-lg p-3 text-sm text-gray-500 outline-0;
+  @apply mt-2 flex w-full rounded-lg bg-white p-3 text-sm text-gray-500 outline-0;
 }
 
 /* Nav Component */
