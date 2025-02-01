@@ -10,7 +10,10 @@ const DeleteButton = ({ id }: { id: string }) => {
     { error: '' }
   );
   return (
-    <form action={formAction}>
+    <form
+      action={formAction}
+      className="flex-center"
+    >
       <button
         className="orange_gradient font-inter cursor-pointer text-sm"
         type="submit"
