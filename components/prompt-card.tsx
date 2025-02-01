@@ -42,7 +42,7 @@ const PromptCard = async ({
       <Tag tag={tag} />
 
       {editMode && (
-        <div className="flex-center mt-5 gap-4 border-t border-gray-100 pt-3">
+        <div className="flex-center mt-5 gap-4 border-t border-gray-200 pt-3">
           <EditButton id={id} />
           <DeleteButton id={id} />
         </div>
