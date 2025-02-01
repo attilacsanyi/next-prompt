@@ -9,7 +9,7 @@ const EditButton = ({ id }: { id: string }) => {
   };
   return (
     <button
-      className="green_gradient cursor-pointer font-inter text-sm"
+      className="green_gradient font-inter cursor-pointer text-sm"
       onClick={handleEdit}
     >
       Edit

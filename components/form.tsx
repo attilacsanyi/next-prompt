@@ -85,7 +85,7 @@ const Form = ({
             Cancel
           </Link>
           <button
-            className="rounded-full bg-primary-orange px-5 py-1.5 text-sm text-white"
+            className="bg-primary-orange rounded-full px-5 py-1.5 text-sm text-white"
             disabled={pending}
             type="submit"
           >

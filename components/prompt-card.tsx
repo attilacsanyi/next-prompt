@@ -38,7 +38,7 @@ const PromptCard = async ({
           textToCopy={prompt}
         />
       </div>
-      <p className="my-4 font-satoshi text-sm text-gray-700">{prompt}</p>
+      <p className="font-satoshi my-4 text-sm text-gray-700">{prompt}</p>
       <Tag tag={tag} />
 
       {editMode && (

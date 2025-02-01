@@ -9,7 +9,7 @@ const Tag = ({
 }) => {
   return (
     <p
-      className="blue_gradient cursor-pointer font-inter text-sm"
+      className="font-inter blue_gradient cursor-pointer text-sm"
       onClick={() => handleTagClick?.(tag)}
     >
       {tag}

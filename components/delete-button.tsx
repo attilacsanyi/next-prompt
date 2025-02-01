@@ -12,7 +12,7 @@ const DeleteButton = ({ id }: { id: string }) => {
   return (
     <form action={formAction}>
       <button
-        className="orange_gradient cursor-pointer font-inter text-sm"
+        className="orange_gradient font-inter cursor-pointer text-sm"
         type="submit"
       >
         Delete {pending ? '...' : ''}
